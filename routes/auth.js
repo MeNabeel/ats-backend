@@ -5,6 +5,15 @@ import User from '../models/User.js';
 
 const router = express.Router();
 
+
+//testing purpose
+router.get('/test', (req, res) => {
+    res.json({
+        message: 'Auth routes are working',
+        availableEndpoints: ['POST /register', 'POST /login', 'POST /google']
+    });
+});
+
 // Register
 router.post('/register', async (req, res) => {
     try {
