@@ -29,7 +29,7 @@ app.use(limiter);
 
 // CORS
 app.use(cors({
-    origin: process.env.CORS_ORIGIN || 'http://localhost:5173' || 'https://ats-frontend-1.onrender.com',
+    origin: process.env.CORS_ORIGIN || 'http://localhost:5173' || 'https://ats-frontend-eta.vercel.app',
     credentials: true
 }));
 
