@@ -30,15 +30,16 @@ app.use(limiter);
 // CORS
 app.use(cors({
     origin: [
-        process.env.CORS_ORIGIN || 'http://localhost:5173',
-        'https://ats-frontend-eta.vercel.app'
+        'http://localhost:5173',  // Local development
+        'http://localhost:5000',   // Local backend
+        'https://ats-frontend-eta.vercel.app'  // Production frontend
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 
-// Add this before routes to handle preflight requests
+// Handle preflight requests
 app.options('*', cors());
 
 // Body Parser with limit
