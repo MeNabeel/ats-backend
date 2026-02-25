@@ -21,13 +21,17 @@ const errorHandler = (err, req, res, next) => {
 
     // Mongoose validation error
     if (err.name === 'ValidationError') {
-        const message = Object.values(err.errors).map(val => val.message);
+        const message = Object.values(err.errors).map(val => val.message).join(', ');
         error = { message, statusCode: 400 };
     }
 
-    res.status(error.statusCode || 500).json({
+    const statusCode = error.statusCode || 500;
+
+    res.status(statusCode).json({
         success: false,
-        error: process.env.NODE_ENV === 'production'
+        // Only hide message for actual 500 server errors in production
+        // User-facing errors (4xx) should always show their messages
+        error: process.env.NODE_ENV === 'production' && statusCode === 500
             ? 'Server Error'
             : (error.message || 'Server Error')
     });
